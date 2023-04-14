@@ -25,8 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   bottomRight: Radius.circular(36))),
           child: ClipRRect(
             borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36)),
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36)),
             child: Image(
               image: AssetImage('assets/image/pic3.jpg'),
               fit: BoxFit.cover,

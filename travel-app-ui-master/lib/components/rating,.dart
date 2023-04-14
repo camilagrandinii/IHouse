@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget Rating({double rating, Color color:Colors.white}) {
+Widget Rating({double rating, Color color: Colors.white}) {
   return Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,
@@ -25,7 +25,9 @@ Widget Rating({double rating, Color color:Colors.white}) {
 
               return Icon(Icons.star_border, color: Colors.yellow, size: 16);
             }),
-            SizedBox(width: 8,),
+        SizedBox(
+          width: 8,
+        ),
         Text(
           rating.toString(),
           style: TextStyle(

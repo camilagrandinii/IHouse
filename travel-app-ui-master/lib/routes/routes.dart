@@ -4,8 +4,6 @@ import 'package:travelappui/views/SplashScreen/splashscreen.dart';
 import 'package:travelappui/views/ViewDetails/viewDetails.dart';
 
 class AppRoutes {
-
-
   static const String ROUTE_Initial = ROUTE_Splashscreen;
 
   static const String ROUTE_Home = "/home";
@@ -14,24 +12,23 @@ class AppRoutes {
   static const String ROUTE_Login = "/login";
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
-
     switch (settings.name) {
       case ROUTE_Home:
-        return MaterialPageRoute(          
+        return MaterialPageRoute(
             settings: settings, builder: (_) => HomePage());
         break;
       case ROUTE_Splashscreen:
-          return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings, builder: (_) => SplashScreen());
         break;
       case ROUTE_ViewDetails:
-          return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings, builder: (_) => ViewDetails());
         break;
       case ROUTE_Login:
-          return MaterialPageRoute(
+        return MaterialPageRoute(
             settings: settings, builder: (_) => HomePage());
-      break;
+        break;
     }
   }
 }

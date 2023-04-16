@@ -1,3 +1,3 @@
 
-const kTitle = "Travel App";
-const kHomePageTitle = "Discover";
+const kTitle = "IHouse";
+const kHomePageTitle = "Infos Gerais";

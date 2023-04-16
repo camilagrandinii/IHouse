@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:travelappui/constants/constants.dart';
 
+List<String> kAppBarMenuOptions = [  'Status - Janelas',  'Previsão do Tempo',  'Conta',];
+
 AppBar HomeAppBar = AppBar(
+  backgroundColor: kAppBarBackground,
   title: Center(
       child: Text(
-    "Discover",
+    "IHouse Stats",
     style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2),
   )),
   leading: PopupMenuButton(
@@ -20,7 +23,7 @@ AppBar HomeAppBar = AppBar(
               value: option,
               child: Container(
                 width: 120,
-                child: Text(option,style: TextStyle(color: Colors.black),),
+                child: Text(option, style: TextStyle(color: Colors.black),),
               ),
             ),
           )
@@ -33,7 +36,10 @@ AppBar HomeAppBar = AppBar(
           Icons.account_circle,
           size: 36,
         ),
-        onPressed: () {})
+        onPressed: () {
+          
+        })
   ],
 );
+
 

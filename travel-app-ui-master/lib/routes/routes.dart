@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travelappui/views/HomePage/homepage.dart';
+import 'package:travelappui/views/Login/login.dart';
+import 'package:travelappui/views/Login/profile.dart';
+import 'package:travelappui/views/Login/register.dart';
 import 'package:travelappui/views/SplashScreen/splashscreen.dart';
 import 'package:travelappui/views/ViewDetails/viewDetails.dart';
 
@@ -12,6 +15,9 @@ class AppRoutes {
   static const String ROUTE_Splashscreen = "/splash";
   static const String ROUTE_ViewDetails = "/view";
   static const String ROUTE_Login = "/login";
+  static const String ROUTE_Register = "/register";
+  static const String ROUTE_Profile = "/profile";
+
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
 
@@ -30,7 +36,15 @@ class AppRoutes {
         break;
       case ROUTE_Login:
           return MaterialPageRoute(
-            settings: settings, builder: (_) => HomePage());
+            settings: settings, builder: (_) => Login());
+      break;
+      case ROUTE_Register:
+          return MaterialPageRoute(
+            settings: settings, builder: (_) => Register());
+      break;
+      case ROUTE_Profile:
+          return MaterialPageRoute(
+            settings: settings, builder: (_) => ProfilePage());
       break;
     }
   }

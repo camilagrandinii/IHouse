@@ -16,13 +16,12 @@ class HomePageStateProvider extends ChangeNotifier
   }
 
   List<String> kTopListLink = [
-    'Popular',
-    'Featured',
-    'Most Visited',    
-    'Europe',
-    'Asia',
-    'Canada',
-    'Australia'
+    'Quarto X',
+    'Quarto Y',
+    'Quarto de Visitas',
+    'Cozinha',    
+    'Banheiro',
+    'Sala de Estar',
   ];
 
   Future<List<PlaceModel>> getFeaturedPlaces() async {

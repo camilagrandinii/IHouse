@@ -5,10 +5,13 @@ import 'package:travelappui/components/appbar.dart';
 import 'package:travelappui/components/featuredcard.dart';
 import 'package:travelappui/components/travelplacedart.dart';
 import 'package:travelappui/constants/colors.dart';
+import 'package:travelappui/routes/routes.dart';
 import 'package:travelappui/theme.dart';
 import 'package:travelappui/views/HomePage/components/featurelist.dart';
 import 'package:travelappui/views/HomePage/state/homepageScrollListner.dart';
 import 'package:travelappui/views/HomePage/state/homepageStateProvider.dart';
+
+import '../../routes/routes.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -88,13 +91,13 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Text(
                           "   Recommended",
-                          style: kAppTheme.textTheme.headline5,
+                          style: kAppTheme.textTheme.headlineSmall,
                         ),
                         TextButton(
                             onPressed: () {},
                             child: Text(
                               "View All",
-                              style: kAppTheme.textTheme.headline6,
+                              style: kAppTheme.textTheme.titleLarge,
                             ))
                       ],
                     ),
@@ -164,26 +167,28 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               IconButton(
                                   icon: Icon(Icons.home_rounded,
-                                      size: 36, color: kAppTheme.accentColor),
+                                      size: 36, color: kAppTheme.colorScheme.secondary),
                                   onPressed: () {}),
                               IconButton(
-                                  icon: Icon(Icons.calendar_today_rounded,
+                                  icon: Icon(Icons.check_circle,
                                       size: 36,
-                                      color: kAppTheme.accentColor
+                                      color: kAppTheme.colorScheme.secondary
                                           .withOpacity(0.35)),
                                   onPressed: () {}),
                               IconButton(
                                   icon: Icon(Icons.search,
                                       size: 36,
-                                      color: kAppTheme.accentColor
+                                      color: kAppTheme.colorScheme.secondary
                                           .withOpacity(0.35)),
                                   onPressed: () {}),
                               IconButton(
                                   icon: Icon(Icons.person,
                                       size: 36,
-                                      color: kAppTheme.accentColor
+                                      color: kAppTheme.colorScheme.secondary
                                           .withOpacity(0.35)),
-                                  onPressed: () {})
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, AppRoutes.ROUTE_Profile);
+                                  })
                             ],
                           ),
                         ),

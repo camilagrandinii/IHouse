@@ -17,51 +17,42 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: kPrimaryColor,
       body: Column(children: [
         Container(
-          height: size.height * 0.55,
-          decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36))),
+          height: size.height * 0.6,
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(36),
-                  bottomRight: Radius.circular(36)),
             child: Image(
-              image: AssetImage('assets/image/pic3.jpg'),
+              image: AssetImage('assets/image/logo-sf.png'),
               fit: BoxFit.cover,
             ),
           ),
         ),
         Container(
-          height: size.height * 0.45,
-          padding: EdgeInsets.all(32),
+          height: size.height * 0.3,
           alignment: Alignment.bottomCenter,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Flexible(
                   child: Text(
-                "Winter Vaction Trips!",
+                "Monitore sua casa!",
                 maxLines: 2,
                 overflow: TextOverflow.clip,
-                style: appTheme.textTheme.headline1,
+                style: appTheme.textTheme.displayLarge,
               )),
               SizedBox(height: 18),
               Text(
-                "Enjoy your winter vacation with warmth and amazing sightseeing on the mountains. Enjoy the best experience with us!",
+                "Aproveite a facilidade de monitorar na sua casa na palma da sua mão!",
                 maxLines: 4,
                 overflow: TextOverflow.fade,
-                style: appTheme.textTheme.bodyText1,
+                style: appTheme.textTheme.bodyLarge,
               ),
               SizedBox(height: 18),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.ROUTE_Home);
+                    Navigator.pushNamed(context, AppRoutes.ROUTE_Login);
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: appTheme.accentColor,
+                      backgroundColor: appTheme.colorScheme.secondary,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
                       elevation: 0,
@@ -71,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           fontWeight: FontWeight.bold)),
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text("Let's Go! "),
+                    child: Text("Ir"),
                   ))
             ],
           ),

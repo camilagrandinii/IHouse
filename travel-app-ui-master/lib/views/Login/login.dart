@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:travelappui/constants/colors.dart';
-import 'package:travelappui/routes/routes.dart';
-import 'package:travelappui/theme.dart';
 import 'package:travelappui/views/HomePage/homepage.dart';
 import 'package:travelappui/views/Login/register.dart';
-
+import 'package:simple_animations/simple_animations.dart';
 import '../../components/header_widget.dart';
 import '../../constants/theme_helper.dart';
+
+
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -23,51 +23,69 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
-          children: [
+          children: <Widget>[
             Container(
               height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true, Icons.login_rounded), //let's create a common header widget
+              child: HeaderWidget(_headerHeight, true, Icons.login), 
             ),
             SafeArea(
               child: Container( 
                 padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),// This will be the login form
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                 child: Column(
                   children: [
-                    Text(
-                      'Olá!',
-                      style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Entre na sua conta',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    SizedBox(height: 30.0),
                     Form(
                       key: _formKey,
                         child: Column(
                           children: [
-                            Container(
-                              child: TextField(
-                                style: TextStyle(color: Colors.black),
-                                decoration: ThemeHelper().textInputDecoration('Nome de Usuário', 'Digite o seu nome de usuário'),
-                              ),
-                              decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                            ),
-                            SizedBox(height: 30.0),
-                            Container(
-                              child: TextField(
-                                style: TextStyle(color: Colors.black),
-                                obscureText: true,
-                                decoration: ThemeHelper().textInputDecoration('Senha', 'Digite sua senha'),
-                              ),
-                              decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                            ),
-                            SizedBox(height: 15.0),
+                            Padding(
+                              padding: EdgeInsets.all(30.0),
+                              child: Column(
+                                children: <Widget>[
+                                  FadeAnimation(1.8, Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color.fromRGBO(125, 217, 253, 0.575),
+                                          blurRadius: 20.0,
+                                          offset: Offset(0, 10)
+                                        )
+                                      ]
+                                    ),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            border: Border(bottom: BorderSide(color: Color.fromARGB(255, 202, 202, 202)))
+                                          ),
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: "Usuário ou E-mail",
+                                              hintStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0))
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: "Senha",
+                                              hintStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0))
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ))])),
                             Container(
                               decoration: ThemeHelper().buttonBoxDecoration(context),
                               child: ElevatedButton(
-                                style: ThemeHelper().buttonStyle(),
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
                                   child: Text('Entrar'.toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
@@ -104,6 +122,37 @@ class _LoginState extends State<Login> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class FadeAnimation extends StatelessWidget {
+  final double delay;
+  final Widget child;
+
+  FadeAnimation(this.delay, this.child);
+  @override
+  Widget build(BuildContext context) {
+    final tween = MultiTrackTween([
+      Track("opacity").add(Duration(milliseconds: 500), Tween(begin: 0.0, end: 1.0)),
+      Track("translateY").add(
+        Duration(milliseconds: 500), Tween(begin: -30.0, end: 0.0),
+        curve: Curves.easeOut)
+    ]);
+
+    return ControlledAnimation(
+      delay: Duration(milliseconds: (500 * delay).round()),
+      duration: tween.duration,
+      tween: tween,
+      child: child,
+      builderWithChild: (context, child, animation) => Opacity(
+        opacity: animation["opacity"],
+        child: Transform.translate(
+          offset: Offset(0, animation["translateY"]), 
+          child: child
         ),
       ),
     );

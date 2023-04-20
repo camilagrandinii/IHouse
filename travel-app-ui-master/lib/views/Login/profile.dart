@@ -1,9 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../SplashScreen/splashscreen.dart';
 
 class ProfilePage extends StatefulWidget{
 
@@ -14,10 +10,6 @@ class ProfilePage extends StatefulWidget{
 }
 
 class _ProfilePageState extends State<ProfilePage>{
-
-  double  _drawerIconSize = 24;
-  double _drawerFontSize = 17;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

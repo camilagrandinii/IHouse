@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../ViewDetails/viewDetails.dart';
 import 'models/task.dart';
 import 'widgets/card_widget.dart';
 import 'widgets/form_widget.dart';
@@ -6,7 +7,6 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:travelappui/components/appbar.dart';
 import 'package:travelappui/constants/colors.dart';
 import 'package:travelappui/views/HomePage/state/homepageScrollListner.dart';
-import '../Login/login.dart';
 import '../Login/profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,13 +22,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  int currentIndex = 0;
+  int currentIndex = 1;
 
+  //Substituir ViewDetails por Weather no futuro
   List<Widget> get pages => [
-    Login(), 
-    HomePageContent(),
-    ProfilePage(),
-  ];
+        ViewDetails(),
+        HomePageContent(),
+        ProfilePage(),
+      ];
 
   void onTabItemSelected(int index) {
     setState(() {
@@ -54,8 +55,8 @@ class _HomePageState extends State<HomePage> {
         tabThreeIcon: Icons.account_circle,
         tabIconColor: kAppBarBackground,
         tabSelectedColor: kOnAccentColor,
-        textStyle: TextStyle(color:kOnAccentColor),
-        onTabItemSelected: onTabItemSelected, 
+        textStyle: TextStyle(color: kOnAccentColor),
+        onTabItemSelected: onTabItemSelected,
       ),
     );
   }
@@ -94,7 +95,6 @@ class HomePageContent extends StatelessWidget {
                       top: 8,
                     ),
                     itemBuilder: (context, index) {
-                      
                       return CardWidget(
                         task: newList[index],
                       );

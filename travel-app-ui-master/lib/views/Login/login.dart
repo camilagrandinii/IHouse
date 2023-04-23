@@ -5,6 +5,7 @@ import 'package:travelappui/views/Login/register.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../components/header_widget.dart';
 import '../../constants/theme_helper.dart';
+import '../../routes/routes.dart';
 
 
 
@@ -91,7 +92,8 @@ class _LoginState extends State<Login> {
                                   child: Text('Entrar'.toUpperCase(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                                 ),
                                 onPressed: (){
-                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                  Navigator.pushReplacementNamed(
+                                        context, AppRoutes.ROUTE_Home);
                                 },
                               ),
                             ),
@@ -106,7 +108,7 @@ class _LoginState extends State<Login> {
                                       text: 'Criar',
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()));
+                                          Navigator.pushNamed(context, AppRoutes.ROUTE_Register);
                                         },
                                       style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.secondary),
                                     ),

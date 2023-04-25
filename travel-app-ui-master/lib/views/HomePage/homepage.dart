@@ -11,8 +11,6 @@ import 'package:travelappui/views/HomePage/components/featurelist.dart';
 import 'package:travelappui/views/HomePage/state/homepageScrollListner.dart';
 import 'package:travelappui/views/HomePage/state/homepageStateProvider.dart';
 
-import '../../routes/routes.dart';
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -166,22 +164,32 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               IconButton(
+                                padding: EdgeInsets.zero,
                                   icon: Icon(Icons.home_rounded,
-                                      size: 36, color: kAppTheme.colorScheme.secondary),
-                                  onPressed: () {}),
+                                      size: 36, color: kAppTheme.colorScheme.secondary .withOpacity(0.35)),
+                                  onPressed: () {
+
+                                  }),
                               IconButton(
+                                  padding: EdgeInsets.zero,
                                   icon: Icon(Icons.check_circle,
                                       size: 36,
                                       color: kAppTheme.colorScheme.secondary
                                           .withOpacity(0.35)),
-                                  onPressed: () {}),
+                                  onPressed: () {
+
+                                  }),
                               IconButton(
-                                  icon: Icon(Icons.search,
+                                padding: EdgeInsets.zero,
+                                  icon: Icon(Icons.wb_cloudy,
                                       size: 36,
                                       color: kAppTheme.colorScheme.secondary
                                           .withOpacity(0.35)),
-                                  onPressed: () {}),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, AppRoutes.ROUTE_WeatherDetails);
+                                  }),
                               IconButton(
+                                  padding: EdgeInsets.zero,
                                   icon: Icon(Icons.person,
                                       size: 36,
                                       color: kAppTheme.colorScheme.secondary

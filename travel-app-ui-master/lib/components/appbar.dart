@@ -11,7 +11,7 @@ AppBar HomeAppBar = AppBar(
     style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2),
   )),
   leading: PopupMenuButton(
-     offset: Offset.fromDirection(2, 58),
+    offset: Offset.fromDirection(2, 58),
     onSelected: (value){
 
     },
@@ -34,7 +34,7 @@ AppBar HomeAppBar = AppBar(
     IconButton(
         icon: Icon(
           Icons.account_circle,
-          size: 36,
+          size: 20,
         ),
         onPressed: () {
           

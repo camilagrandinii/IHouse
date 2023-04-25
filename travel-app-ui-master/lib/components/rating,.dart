@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget Rating({double rating, Color color:Colors.white}) {
+// ignore: non_constant_identifier_names
+Widget Rating({double rating, Color color =Colors.white}) {
   return Container(
     padding: EdgeInsets.zero,
     margin: EdgeInsets.zero,

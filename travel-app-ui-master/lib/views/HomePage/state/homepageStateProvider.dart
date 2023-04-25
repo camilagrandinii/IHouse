@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:travelappui/models/placesModel.dart';
 import 'package:travelappui/utils/restAPI.dart';
@@ -32,6 +31,7 @@ class HomePageStateProvider extends ChangeNotifier
     return await api.getAllPlaces();    
   }
 
+  // ignore: non_constant_identifier_names
   Future<void> GetTopList() async {
 
       await Future.delayed(const Duration(milliseconds: 500), (){});

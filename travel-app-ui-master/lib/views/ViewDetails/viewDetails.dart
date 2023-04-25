@@ -64,7 +64,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Mount Fuji", style: appTheme.textTheme.headline2),
+                    Text("Mount Fuji", style: appTheme.textTheme.displayMedium),
                     SizedBox(height: 4),
                     Row(children: [
                       Icon(
@@ -74,7 +74,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                       SizedBox(width: 12),
                       Text(
                         "Honshu, Japan",
-                        style: appTheme.textTheme.caption,
+                        style: appTheme.textTheme.bodySmall,
                       )
                     ]),
                     SizedBox(height: 8),
@@ -85,9 +85,9 @@ class _ViewDetailsState extends State<ViewDetails> {
                         IconButton(
                             icon: Icon(
                               Icons.remove,
-                              color: appTheme.accentColor,
+                              color: appTheme.colorScheme.secondary,
                             ),
-                            splashColor: appTheme.accentColor,
+                            splashColor: appTheme.colorScheme.secondary,
                             onPressed: () {
                               removePackage();
                             }),
@@ -95,7 +95,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                           padding: EdgeInsets.only(left: 8, right: 8),
                           child: Text(
                             numberPackage.toString(),
-                            style: appTheme.textTheme.caption,
+                            style: appTheme.textTheme.bodySmall,
                           ),
                         ),
                         IconButton(
@@ -106,15 +106,15 @@ class _ViewDetailsState extends State<ViewDetails> {
                         SizedBox(width: 12),
                         Icon(
                           Icons.timer_rounded,
-                          color: appTheme.accentColor,
+                          color: appTheme.colorScheme.secondary,
                         ),
                         SizedBox(
                           width: 8,
                         ),
                         Text(
                           "5 Days",
-                          style: appTheme.textTheme.caption
-                              .merge(TextStyle(color: appTheme.accentColor)),
+                          style: appTheme.textTheme.bodySmall
+                              .merge(TextStyle(color: appTheme.colorScheme.secondary)),
                         ),
                       ],
                     ),
@@ -123,7 +123,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                     ),
                     Text(
                       "Description",
-                      style: appTheme.textTheme.headline3
+                      style: appTheme.textTheme.displaySmall
                           .merge(TextStyle(color: Colors.black)),
                     ),
                     SizedBox(height: 12),
@@ -131,7 +131,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                       "Enjoy your winter vacation with warmth and amazing sightseeing on the mountains. Enjoy the best experience with us!",
                       maxLines: 4,
                       overflow: TextOverflow.fade,
-                      style: appTheme.textTheme.bodyText1,
+                      style: appTheme.textTheme.bodyLarge,
                     ),
                     SizedBox(height: size.height*0.02),
                     Row(
@@ -142,20 +142,20 @@ class _ViewDetailsState extends State<ViewDetails> {
                             TextSpan(
                                 text: "\$400",
                                 style: TextStyle(
-                                    color: appTheme.accentColor,
+                                    color: appTheme.colorScheme.secondary,
                                     fontSize: 32,
                                     fontWeight: FontWeight.bold)),
                             TextSpan(
                                 text: "/Package",
                                 style: TextStyle(
-                                    color: appTheme.accentColor,
+                                    color: appTheme.colorScheme.secondary,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold))
                           ]),
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                primary: appTheme.accentColor,
+                                backgroundColor: appTheme.colorScheme.secondary,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30)),
                                 elevation: 0,
@@ -168,7 +168,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 "Book Now",
-                                style: appTheme.textTheme.headline3,
+                                style: appTheme.textTheme.displaySmall,
                               ),
                             ))
                       ],

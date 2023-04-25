@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travelappui/constants/colors.dart';
-import 'package:travelappui/routes/routes.dart';
-import 'package:travelappui/theme.dart';
 import 'package:travelappui/views/HomePage/homepage.dart';
 
 import '../../components/header_widget.dart';
@@ -26,7 +23,7 @@ final _formKey = GlobalKey<FormState>();
           children: [
             Container(
               height: 150,
-              child: HeaderWidget(150, false, Icons.person_add_alt_1_rounded),
+              child: HeaderWidget(150, false, Icons.person_add_alt_rounded),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(25, 50, 25, 10),
@@ -45,29 +42,19 @@ final _formKey = GlobalKey<FormState>();
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
-                                  border: Border.all(
-                                      width: 5, color: Colors.white),
                                   color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black12,
+                                      color: Color.fromARGB(117, 138, 217, 241),
                                       blurRadius: 20,
                                       offset: const Offset(5, 5),
                                     ),
                                   ],
                                 ),
                                 child: Icon(
-                                  Icons.person,
-                                  color: Colors.grey.shade300,
+                                  Icons.waving_hand_outlined,
+                                  color: Color.fromARGB(255, 158, 220, 245),
                                   size: 80.0,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(80, 80, 0, 0),
-                                child: Icon(
-                                  Icons.add_circle,
-                                  color: Colors.grey.shade700,
-                                  size: 25.0,
                                 ),
                               ),
                             ],
@@ -96,6 +83,7 @@ final _formKey = GlobalKey<FormState>();
                             decoration: ThemeHelper().textInputDecoration("E-mail", "Digite seu email"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
+                              // ignore: prefer_is_not_empty
                               if(!(val.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
                                 return "Digite um email válido!";
                               }
@@ -113,6 +101,7 @@ final _formKey = GlobalKey<FormState>();
                                 "Digite o seu telefone"),
                             keyboardType: TextInputType.phone,
                             validator: (val) {
+                              // ignore: prefer_is_not_empty
                               if(!(val.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
                                 return "Digite um telefone válido!";
                               }
@@ -127,7 +116,7 @@ final _formKey = GlobalKey<FormState>();
                             style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Senha*", "Digite a sua senha"),
+                                "Senha", "Digite a sua senha"),
                             validator: (val) {
                               if (val.isEmpty) {
                                 return "Por favor, digite a sua senha";
@@ -178,11 +167,10 @@ final _formKey = GlobalKey<FormState>();
                         Container(
                           decoration: ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
-                            style: ThemeHelper().buttonStyle(),
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
-                                "Register".toUpperCase(),
+                                "Cadastrar".toUpperCase(),
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,

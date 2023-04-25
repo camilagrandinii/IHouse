@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:travelappui/components/rating,.dart';
 import 'package:travelappui/models/placesModel.dart';
 import 'package:travelappui/theme.dart';
 
+// ignore: non_constant_identifier_names
 Widget TravelCard(PlaceModel placeModel) => Container(
       
       child: Stack(
@@ -45,7 +44,7 @@ Widget TravelCard(PlaceModel placeModel) => Container(
                 children: [
                   Text(
                     placeModel.placeTitle,
-                    style: kAppTheme.textTheme.subtitle1,
+                    style: kAppTheme.textTheme.titleMedium,
                   ),
                   Row(
                     children: [

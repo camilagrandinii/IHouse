@@ -5,6 +5,7 @@ import 'package:travelappui/components/rating,.dart';
 import 'package:travelappui/models/placesModel.dart';
 import 'package:travelappui/theme.dart';
 
+// ignore: must_be_immutable
 class FeaturedCard extends StatefulWidget {
 
   PlaceModel placeModel;
@@ -24,9 +25,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    ThemeData appTheme = Theme.of(context);
-    
+    Size size = MediaQuery.of(context).size;    
     return Container(
         width: size.width * 0.85,
         height: max(200, size.height * 0.32),
@@ -66,7 +65,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
                         children: [
                           Text(
                             widget.placeModel.placeTitle,
-                            style: kAppTheme.textTheme.headline3,
+                            style: kAppTheme.textTheme.displaySmall,
                           ),
                           IconButton(
                               icon: Icon(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travelappui/constants/constants.dart';
 
-List<String> kAppBarMenuOptions = [  'Status - Janelas',  'Previsão do Tempo',  'Conta',];
-
+// ignore: non_constant_identifier_names
 AppBar HomeAppBar = AppBar(
   backgroundColor: kAppBarBackground,
   title: Center(
@@ -41,5 +40,3 @@ AppBar HomeAppBar = AppBar(
         })
   ],
 );
-
-

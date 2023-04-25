@@ -32,8 +32,8 @@ class _TopFeaturedListState extends State<TopFeaturedList> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 4, right: 4),
                             child: Text(state.kTopListLink[index],
-                                style: kAppTheme.textTheme.headline4.merge(
-                                    TextStyle(fontWeight: FontWeight.bold, color: kAppTheme.accentColor))),
+                                style: kAppTheme.textTheme.headlineMedium.merge(
+                                    TextStyle(fontWeight: FontWeight.bold, color: kAppTheme.colorScheme.secondary))),
                           ),
                           onPressed: () {
                                
@@ -44,7 +44,7 @@ class _TopFeaturedListState extends State<TopFeaturedList> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4, right: 4),
                           child: Text(state.kTopListLink[index],
-                              style: kAppTheme.textTheme.headline4),
+                              style: kAppTheme.textTheme.headlineMedium),
                         ),
                         onPressed: () {},
                       );

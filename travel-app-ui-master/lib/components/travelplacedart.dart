@@ -48,7 +48,7 @@ Widget TravelCard(PlaceModel placeModel) => Container(
                   ),
                   Row(
                     children: [
-                     Rating(rating: placeModel.rating)
+                      Rating(rating: placeModel.rating)
                     ],
                   )
                 ],

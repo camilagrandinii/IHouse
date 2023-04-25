@@ -5,6 +5,7 @@ import 'package:travelappui/views/Login/profile.dart';
 import 'package:travelappui/views/Login/register.dart';
 import 'package:travelappui/views/SplashScreen/splashscreen.dart';
 import 'package:travelappui/views/ViewDetails/viewDetails.dart';
+import 'package:travelappui/views/WeatherPrevision/lib2/mainWeather.dart';
 
 class AppRoutes {
 
@@ -17,6 +18,7 @@ class AppRoutes {
   static const String ROUTE_Login = "/login";
   static const String ROUTE_Register = "/register";
   static const String ROUTE_Profile = "/profile";
+  static const String ROUTE_WeatherDetails = "/weather";
 
 
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -46,6 +48,13 @@ class AppRoutes {
           return MaterialPageRoute(
             settings: settings, builder: (_) => ProfilePage());
       break;
+      case ROUTE_WeatherDetails:
+          return MaterialPageRoute(
+            settings: settings, builder: (_) => MainWeather());
+      break;
+      default:
+      return MaterialPageRoute(          
+          settings: settings, builder: (_) => HomePage());
     }
   }
 }

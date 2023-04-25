@@ -6,7 +6,9 @@ import './constants/constants.dart';
 import './theme.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

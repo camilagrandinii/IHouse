@@ -7,6 +7,7 @@ import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:travelappui/components/appbar.dart';
 import 'package:travelappui/constants/colors.dart';
 import 'package:travelappui/views/HomePage/state/homepageScrollListner.dart';
+import 'package:travelappui/views/HomePage/state/homepageStateProvider.dart';
 import '../Login/profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -109,6 +110,69 @@ class HomePageContent extends StatelessWidget {
                 ),
               ),
             ),
+            AnimatedBuilder(
+                animation: _model,
+                builder: (context, child) {
+                  return Positioned(
+                      bottom: _model.bottom,
+                      right: 22,
+                      left: 22,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 12, right: 12),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 15,
+                                  color: Colors.black.withOpacity(0.4))
+                            ],
+                            borderRadius: BorderRadius.circular(45)),
+                        height: 75,
+                        alignment: Alignment.center,
+                        child: Material(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                  icon: Icon(Icons.home_rounded,
+                                      size: 36, color: kAppTheme.colorScheme.secondary .withOpacity(0.35)),
+                                  onPressed: () {
+
+                                  }),
+                              IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: Icon(Icons.check_circle,
+                                      size: 36,
+                                      color: kAppTheme.colorScheme.secondary
+                                          .withOpacity(0.35)),
+                                  onPressed: () {
+
+                                  }),
+                              IconButton(
+                                padding: EdgeInsets.zero,
+                                  icon: Icon(Icons.wb_cloudy,
+                                      size: 36,
+                                      color: kAppTheme.colorScheme.secondary
+                                          .withOpacity(0.35)),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, AppRoutes.ROUTE_WeatherDetails);
+                                  }),
+                              IconButton(
+                                  padding: EdgeInsets.zero,
+                                  icon: Icon(Icons.person,
+                                      size: 36,
+                                      color: kAppTheme.colorScheme.secondary
+                                          .withOpacity(0.35)),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, AppRoutes.ROUTE_Profile);
+                                  })
+                            ],
+                          ),
+                        ),
+                      ));
+                })
           ],
         ),
       ),

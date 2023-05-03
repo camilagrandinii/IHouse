@@ -130,8 +130,6 @@ class WeatherProvider with ChangeNotifier {
     isLoading = true;
     isRequestError = false;
     isLocationError = false;
-    double latitude = weather.lat;
-    double longitude = weather.long;
     await searchWeatherWithLocation(location);
     // await getDailyWeather(LatLng(latitude, longitude));
   }

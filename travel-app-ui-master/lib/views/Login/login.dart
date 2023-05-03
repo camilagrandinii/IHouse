@@ -1,7 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:travelappui/views/HomePage/homepage.dart';
-import 'package:travelappui/views/Login/register.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../../components/header_widget.dart';
 import '../../constants/theme_helper.dart';
@@ -69,6 +67,7 @@ class _LoginState extends State<Login> {
                                               hintText: "Usuário ou E-mail",
                                               hintStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0))
                                             ),
+                                            style: TextStyle(color: Colors.black)
                                           ),
                                         ),
                                         Container(
@@ -79,6 +78,7 @@ class _LoginState extends State<Login> {
                                               hintText: "Senha",
                                               hintStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0))
                                             ),
+                                            style: TextStyle(color: Colors.black)
                                           ),
                                         )
                                       ],

@@ -18,6 +18,5 @@ class HomepageSrollListner extends ChangeNotifier{
       if (bottom <=22 && bottom >-height)
         notifyListeners();      
      });
-
   }
 }

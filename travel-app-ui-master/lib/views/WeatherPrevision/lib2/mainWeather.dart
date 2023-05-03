@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:travelappui/views/WeatherPrevision/lib2/widgets/mainWeather.dart';
-
 
 import 'screens/hourlyWeatherScreen.dart';
 import './provider/weatherProvider.dart';

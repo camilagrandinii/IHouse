@@ -1,36 +1,25 @@
 import 'package:flutter/material.dart';
-import '../ViewDetails/viewDetails.dart';
-import 'models/task.dart';
-import 'widgets/card_widget.dart';
-import 'widgets/form_widget.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
-import 'package:travelappui/components/appbar.dart';
-import 'package:travelappui/constants/colors.dart';
-import 'package:travelappui/views/HomePage/state/homepageScrollListner.dart';
-import 'package:travelappui/views/HomePage/state/homepageStateProvider.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import '../../components/appbar.dart';
+import '../../constants/colors.dart';
 import '../Login/profile.dart';
+import '../WeatherPrevision/lib2/mainWeather.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   int currentIndex = 1;
 
-  //Substituir ViewDetails por Weather no futuro
   List<Widget> get pages => [
-        ViewDetails(),
-        HomePageContent(),
-        ProfilePage(),
-      ];
+    MainWeather(),
+    HomePageContent(),
+    ProfilePage(),
+  ];
 
   void onTabItemSelected(int index) {
     setState(() {
@@ -63,135 +52,240 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// ignore: must_be_immutable
-class HomePageContent extends StatelessWidget {
-  // ignore: unused_field
-  HomepageSrollListner _model;
-  final newList = listTask.where((element) => !element.isDone).toList();
+class HomePageContent extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SizedBox(
-        width: size.width,
-        height: size.height,
-        child: Stack(
+  _HomePageContentState createState() => _HomePageContentState();
+}
+
+class Item {
+  String nome;
+  String tag;
+    Color cor;
+
+  Item({this.nome, this.tag,this.cor});
+}
+
+class _HomePageContentState extends State<HomePageContent> {
+  List<Item> itemList = [];
+  String searchTag = '';
+  final nomeController = TextEditingController();
+  final tagController = TextEditingController();
+  int selectedIndex = -1;
+
+  void addItem() {
+    setState(() {
+      itemList.add(Item(nome: nomeController.text, tag: tagController.text));
+      nomeController.text = "";
+      tagController.text = "";
+    });
+  }
+
+  void editItem() {
+    setState(() {
+      nomeController.text = itemList[selectedIndex].nome;
+      tagController.text = itemList[selectedIndex].tag;
+      Item item = itemList[selectedIndex];
+      item.nome = nomeController.text;
+      item.tag = tagController.text;
+    });
+  }
+
+
+  void deleteItem(int index) {
+    setState(() {
+      itemList.removeAt(selectedIndex);
+      selectedIndex = -1;
+      nomeController.text = "";
+      tagController.text = "";
+    });
+  }
+
+  void _showAddItemDialog() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Color selectedColor = Colors.grey;
+      return AlertDialog(
+        title: Text('Adicionar Janela'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Positioned(
-              left: 16,
-              child: Container(
-                width: size.width - 32,
-                height: size.height / 0.4,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.horizontal(
-                    left: Radius.circular(10),
-                    right: Radius.circular(10),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ListView.separated(
-                    padding: const EdgeInsets.only(
-                      top: 8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return CardWidget(
-                        task: newList[index],
-                      );
-                    },
-                    itemCount: newList.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 4,
-                      );
-                    },
-                  ),
-                ),
+            TextField(
+              controller: nomeController,
+              decoration: InputDecoration(
+                labelText: "Nome",
               ),
+              style: TextStyle(color: Colors.black),
             ),
-            AnimatedBuilder(
-                animation: _model,
-                builder: (context, child) {
-                  return Positioned(
-                      bottom: _model.bottom,
-                      right: 22,
-                      left: 22,
-                      child: Container(
-                        padding: EdgeInsets.only(left: 12, right: 12),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 15,
-                                  color: Colors.black.withOpacity(0.4))
-                            ],
-                            borderRadius: BorderRadius.circular(45)),
-                        height: 75,
-                        alignment: Alignment.center,
-                        child: Material(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                  icon: Icon(Icons.home_rounded,
-                                      size: 36, color: kAppTheme.colorScheme.secondary .withOpacity(0.35)),
-                                  onPressed: () {
-
-                                  }),
-                              IconButton(
-                                  padding: EdgeInsets.zero,
-                                  icon: Icon(Icons.check_circle,
-                                      size: 36,
-                                      color: kAppTheme.colorScheme.secondary
-                                          .withOpacity(0.35)),
-                                  onPressed: () {
-
-                                  }),
-                              IconButton(
-                                padding: EdgeInsets.zero,
-                                  icon: Icon(Icons.wb_cloudy,
-                                      size: 36,
-                                      color: kAppTheme.colorScheme.secondary
-                                          .withOpacity(0.35)),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, AppRoutes.ROUTE_WeatherDetails);
-                                  }),
-                              IconButton(
-                                  padding: EdgeInsets.zero,
-                                  icon: Icon(Icons.person,
-                                      size: 36,
-                                      color: kAppTheme.colorScheme.secondary
-                                          .withOpacity(0.35)),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, AppRoutes.ROUTE_Profile);
-                                  })
-                            ],
-                          ),
-                        ),
-                      ));
-                })
+            TextField(
+              controller: tagController,
+              decoration: InputDecoration(
+                labelText: "Tag",
+              ),
+              style: TextStyle(color: Colors.black),
+            ),
+            ColorPicker(
+              pickerColor: selectedColor,
+              onColorChanged: (Color color) {
+                setState(() {
+                  selectedColor = color;
+                });
+              },
+              // ignore: deprecated_member_use
+              showLabel: true,
+              pickerAreaHeightPercent: 0.8,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  itemList.add(Item(
+                    nome: nomeController.text,
+                    tag: tagController.text,
+                    cor: selectedColor,
+                  ));
+                  nomeController.text = "";
+                  tagController.text = "";
+                });
+                Navigator.pop(context);
+              },
+              child: Text("Adicionar"),
+            ),
           ],
         ),
+      );
+    },
+  );
+}
+
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        _showAddItemDialog();
+      },
+      child: Icon(Icons.add),
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(height: 16.0),
+              itemCount: itemList.length,
+              itemBuilder: (context, index) {
+                Item item = itemList[index];
+                Color cor = item.cor ?? Color.fromARGB(255, 147, 188, 241); 
+                switch (item.tag) {
+                  case "Quarto":
+                    cor = Colors.green;
+                    break;
+                  case "Sala":
+                    cor = Colors.blue;
+                    break;
+                }
+                return Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                  child: ListTile(
+                    title: Text(
+                      item.nome,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                    subtitle: Text(
+                      item.tag,
+                      style: TextStyle(
+                        color: cor,
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = index;
+                        nomeController.text = item.nome;
+                        tagController.text = item.tag;
+                      });
+                    },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit, color: Colors.black),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Editar Item'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      DefaultTextStyle(
+                                        style: TextStyle(color: Colors.black),
+                                        child: Column(
+                                          children: [
+                                            Text("Nome: ${item.nome}"),
+                                            Text("Tag: ${item.tag}"),
+                                          ],
+                                        ),
+                                      ),
+                                      TextField(
+                                        controller: nomeController,
+                                        decoration: InputDecoration(
+                                          labelText: "Novo nome",
+                                        ),
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      TextField(
+                                        controller: tagController,
+                                        decoration: InputDecoration(
+                                          labelText: "Nova tag",
+                                        ),
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Cancelar'),
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        editItem();
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Salvar'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            setState(() {
+                              itemList.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const FormWidget();
-              });
-        },
-        backgroundColor: const Color(0xff2da9ef),
-        foregroundColor: const Color(0xffffffff),
-        child: const Icon(
-          Icons.add,
-          size: 36,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-    );
-  }
+    ),
+  );
+}
 }

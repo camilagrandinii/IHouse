@@ -4,13 +4,15 @@ import 'package:simple_animations/simple_animations.dart';
 import '../../components/header_widget.dart';
 import '../../constants/theme_helper.dart';
 import '../../routes/routes.dart';
-
-
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
+
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
 
 class _LoginState extends State<Login> {
   @override
@@ -62,6 +64,7 @@ class _LoginState extends State<Login> {
                                             border: Border(bottom: BorderSide(color: Color.fromARGB(255, 202, 202, 202)))
                                           ),
                                           child: TextField(
+                                            controller: _emailController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
                                               hintText: "Usuário ou E-mail",
@@ -73,6 +76,7 @@ class _LoginState extends State<Login> {
                                         Container(
                                           padding: EdgeInsets.all(8.0),
                                           child: TextField(
+                                            controller: _passwordController,
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
                                               hintText: "Senha",
@@ -94,6 +98,7 @@ class _LoginState extends State<Login> {
                                 onPressed: (){
                                   Navigator.pushReplacementNamed(
                                         context, AppRoutes.ROUTE_Home);
+                                  login(_emailController.text, _passwordController.text);
                                 },
                               ),
                             ),
@@ -130,6 +135,16 @@ class _LoginState extends State<Login> {
   }
 }
 
+Future<void> login(String email, String password) async {
+  Uri getUserDataUrl = Uri.parse('https://localhost:7185/api/Users/$email');
+  final response = await http.get(getUserDataUrl);
+
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('Usuário não cadastrado');
+  }
+}
 
 class FadeAnimation extends StatelessWidget {
   final double delay;

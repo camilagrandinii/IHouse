@@ -5,6 +5,7 @@ import '../../components/appbar.dart';
 import '../../constants/colors.dart';
 import '../Login/profile.dart';
 import '../WeatherPrevision/lib2/mainWeather.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -157,6 +158,16 @@ class _HomePageContentState extends State<HomePageContent> {
   );
 }
 
+Future<void> getSensorsData() async {
+  final urlGetAllSensors = Uri.parse('https://localhost:7073/sensor/');
+  final response = await http.get(urlGetAllSensors);
+
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('Erro ao obter dados do servidor.');
+  }
+}
 
 @override
 Widget build(BuildContext context) {

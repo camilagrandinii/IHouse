@@ -3,10 +3,40 @@ import 'package:travelappui/views/HomePage/homepage.dart';
 
 import '../../components/header_widget.dart';
 import '../../constants/theme_helper.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Register extends StatefulWidget {
   @override
   _Register createState() => _Register();
+}
+
+final TextEditingController _firstNameController = TextEditingController();
+final TextEditingController _secondNameController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+final TextEditingController _emailController = TextEditingController();
+
+Future<void> postUserData(String firstName, String secondName, String password, String email) async {
+  final url = Uri.parse('https://localhost:7185/api/Users');
+  final headers = {'Content-Type': 'application/json'};
+  final data = {'id': 3, 'username': firstName + secondName, 'email': email, 'password': password};
+  var response;
+
+  try{
+    response = await http.post(
+    url,
+    headers: headers,
+    body: json.encode(data),
+  );
+  }catch(e){
+    print('Ocorreu uma exceção: $e');
+  }
+
+  if (response.statusCode == 200) {
+    print(response.body);
+  } else {
+    print('Erro ao enviar dados para o servidor.');
+  }
 }
 
 class _Register extends State<Register> {
@@ -63,6 +93,7 @@ final _formKey = GlobalKey<FormState>();
                         SizedBox(height: 30,),
                         Container(
                           child: TextFormField(
+                            controller: _firstNameController,
                             style: TextStyle(color: Colors.black),
                             decoration: ThemeHelper().textInputDecoration('Primeiro Nome', 'Digite o seu primeiro nome'),
                           ),
@@ -71,6 +102,7 @@ final _formKey = GlobalKey<FormState>();
                         SizedBox(height: 30,),
                         Container(
                           child: TextFormField(
+                            controller: _secondNameController,
                             style: TextStyle(color: Colors.black),
                             decoration: ThemeHelper().textInputDecoration('Sobrenome', 'Digite o seu sobrenome'),
                           ),
@@ -79,6 +111,7 @@ final _formKey = GlobalKey<FormState>();
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            controller: _emailController,
                             style: TextStyle(color: Colors.black),
                             decoration: ThemeHelper().textInputDecoration("E-mail", "Digite seu email"),
                             keyboardType: TextInputType.emailAddress,
@@ -95,24 +128,7 @@ final _formKey = GlobalKey<FormState>();
                         SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
-                            style: TextStyle(color: Colors.black),
-                            decoration: ThemeHelper().textInputDecoration(
-                                "Telefone",
-                                "Digite o seu telefone"),
-                            keyboardType: TextInputType.phone,
-                            validator: (val) {
-                              // ignore: prefer_is_not_empty
-                              if(!(val.isEmpty) && !RegExp(r"^(\d+)*$").hasMatch(val)){
-                                return "Digite um telefone válido!";
-                              }
-                              return null;
-                            },
-                          ),
-                          decoration: ThemeHelper().inputBoxDecorationShaddow(),
-                        ),
-                        SizedBox(height: 20.0),
-                        Container(
-                          child: TextFormField(
+                            controller: _passwordController,
                             style: TextStyle(color: Colors.black),
                             obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
@@ -187,6 +203,7 @@ final _formKey = GlobalKey<FormState>();
                                         (Route<dynamic> route) => false
                                 );
                               }
+                              postUserData(_firstNameController.text, _secondNameController.text, _emailController.text, _passwordController.text);
                             },
                           ),
                         ),

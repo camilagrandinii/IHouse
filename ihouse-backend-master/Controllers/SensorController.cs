@@ -24,14 +24,13 @@ namespace ihouse_backend.Controllers {
 
 		// POST: api/Sensor
 		[HttpPost]
-		public object PostSensor(Janela[] janela) {
+		public void PostSensor(Janela[] janela) {
 			janelas = new List<Janela>();
 			foreach (Janela j in janela) {
 				if (j.IsAberta && j.Sensor > 0.2f) {
 					janelas.Add(j);
 				}
 			}
-			return Results.Ok;
 		}
 	}
 }

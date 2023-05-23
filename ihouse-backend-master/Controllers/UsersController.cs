@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ihouse.Database;
@@ -11,6 +11,7 @@ using ihouse.Models;
 namespace ihouse_backend.Controllers {
 	[Route("api/[controller]")]
 	[ApiController]
+	[EnableCors]
 	public class UsersController : ControllerBase {
 		private readonly UserContext _context;
 
@@ -81,7 +82,7 @@ namespace ihouse_backend.Controllers {
 			_context.Users.Add(user);
 			await _context.SaveChangesAsync();
 
-			return CreatedAtAction("GetUser", new { id = user.Id }, user);
+			return CreatedAtAction("GetUser", new { email = user.Email }, user);
 		}
 
 		// DELETE: api/Users/5

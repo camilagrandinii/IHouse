@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ihouse.Database;
+using Microsoft.AspNetCore.Cors;
 using ihouse.Models;
-using System.Collections;
 
 namespace ihouse_backend.Controllers {
 
 	[Route("api/[controller]")]
 	[ApiController]
+	[EnableCors]
 	public class SensorController : ControllerBase {
 		private static List<Janela> janelas;
 

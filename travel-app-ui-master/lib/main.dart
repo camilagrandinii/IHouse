@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:travelappui/routes/routes.dart';
+import 'package:travelappui/views/HomePage/home_page_content.dart';
 import 'package:travelappui/views/HomePage/state/homepageStateProvider.dart';
 import './constants/constants.dart';
 import './theme.dart';
@@ -15,9 +18,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext csontext) {
-    return MultiProvider(providers: [
-      ChangeNotifierProvider(create: (_)=>HomePageStateProvider())
-    ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HomePageStateProvider())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: kHomePageTitle,
@@ -28,7 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-

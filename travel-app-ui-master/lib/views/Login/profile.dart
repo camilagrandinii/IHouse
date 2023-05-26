@@ -1,57 +1,42 @@
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatefulWidget{
-
+class ProfilePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-     return _ProfilePageState();
+    return _ProfilePageState();
   }
 }
 
-class _ProfilePageState extends State<ProfilePage>{
+class _ProfilePageState extends State<ProfilePage> {
+  String _nome = '';
+  String _email = '';
+
+  void loadProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String nome = prefs.getString('nome');
+    String email = prefs.getString('email');
+
+    _nome = nome ?? '';
+    _email = email ?? '';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadProfileData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile Page",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        elevation: 0.5,
-        iconTheme: IconThemeData(color: Colors.white),
-        flexibleSpace:Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Color.fromARGB(255, 159, 189, 247), Theme.of(context).colorScheme.secondary,]
-              )
-          ),
-        ),
-        actions: [
-          Container(
-            margin: EdgeInsets.only( top: 16, right: 16,),
-            child: Stack(
-              children: <Widget>[
-                Icon(Icons.notifications),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration( color: Colors.red, borderRadius: BorderRadius.circular(6),),
-                    constraints: BoxConstraints( minWidth: 12, minHeight: 12, ),
-                    child: Text( '5', style: TextStyle(color: Colors.white, fontSize: 8,), textAlign: TextAlign.center,),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Container(height: 100, child: AppBar(),),
+            Container(
+              height: 100,
+              child: AppBar(),
+            ),
             Container(
               alignment: Alignment.center,
               margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
@@ -65,20 +50,36 @@ class _ProfilePageState extends State<ProfilePage>{
                       border: Border.all(width: 5, color: Colors.white),
                       color: Colors.white,
                       boxShadow: [
-                        BoxShadow(color: Colors.black12, blurRadius: 20, offset: const Offset(5, 5),),
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 20,
+                          offset: const Offset(5, 5),
+                        ),
                       ],
                     ),
-                    child: Icon(Icons.person, size: 80, color: Colors.grey.shade300,),
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey.shade300,
+                    ),
                   ),
-                  SizedBox(height: 20,),
-                  Text('Mr. Donald Trump', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    '$_nome',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     padding: EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                          padding:
+                              const EdgeInsets.only(left: 8.0, bottom: 4.0),
                           alignment: Alignment.topLeft,
                           child: Text(
                             "Informações sobre a conta",
@@ -111,12 +112,7 @@ class _ProfilePageState extends State<ProfilePage>{
                                         ListTile(
                                           leading: Icon(Icons.email),
                                           title: Text("Email"),
-                                          subtitle: Text("donaldtrump@gmail.com"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.phone),
-                                          title: Text("Phone"),
-                                          subtitle: Text("99--99876-56"),
+                                          subtitle: Text("$_email"),
                                         ),
                                       ],
                                     ),
@@ -137,5 +133,4 @@ class _ProfilePageState extends State<ProfilePage>{
       ),
     );
   }
-
 }

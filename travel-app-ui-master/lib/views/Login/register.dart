@@ -19,7 +19,7 @@ final TextEditingController _emailController = TextEditingController();
 Future<void> postUserData(String firstName, String secondName, String password, String email) async {
   final url = Uri.parse('https://localhost:7185/api/Users');
   final headers = {'Content-Type': 'application/json'};
-  final data = {'id': 3, 'username': firstName + secondName, 'email': email, 'password': password};
+  final data = {'Username': firstName + " " + secondName, 'Email': email, 'Password': password};
   var response;
 
   try{
@@ -32,7 +32,7 @@ Future<void> postUserData(String firstName, String secondName, String password, 
     print('Ocorreu uma exceção: $e');
   }
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     print(response.body);
   } else {
     print('Erro ao enviar dados para o servidor.');

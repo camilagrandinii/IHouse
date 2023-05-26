@@ -3,5 +3,6 @@
 		public float Sensor { get; set; }
 		public bool IsAberta { get; set; }
 		public string? Local { get; set; }
+		public int Id { get; set; }
 	}
 }

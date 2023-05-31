@@ -7,6 +7,17 @@ namespace ihouse.Database {
 		public UserContext(DbContextOptions<UserContext> options)
 		: base(options) { }
 
-		public DbSet<User> Users { get; set; }
-	}
+		public DbSet<User> User { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>(entity =>
+            { 
+                entity.HasKey(entity => entity.Id);
+                entity.Property(entity => entity.Id).ValueGeneratedOnAdd().IsRequired();
+            });
+        }
+    }
 }

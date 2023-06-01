@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:supercharged/supercharged.dart';
@@ -197,31 +198,50 @@ Future<bool> login(String email, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('nome', usuario.nome);
     prefs.setString('email', usuario.email);
+    
+    Fluttertoast.showToast(
+    msg: "Login Efetuado com Sucesso!",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 5,
+    backgroundColor: Colors.transparent,
+    textColor: Colors.white,
+    fontSize: 16.0,
+    webShowClose: true,
+    webBgColor: "linear-gradient(to right, #299ac6, #299ac6)",
+  );
 
     return Future.value(true);
-    
+
   } else if (response.statusCode == 200 && userPassword != password) {
     Fluttertoast.showToast(
-      msg: "Senha incorreta! Por favor tente novamente.",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIosWeb: 5,
-      backgroundColor: Color.fromRGBO(125, 217, 253, 0.575),
-      textColor: Colors.black,
-      fontSize: 16.0,
-    );
+    msg: "Senha incorreta! Por favor tente novamente.",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 5,
+    backgroundColor: Colors.transparent,
+    textColor: Colors.white,
+    fontSize: 16.0,
+    webShowClose: true,
+    webBgColor: "linear-gradient(to right, #299ac6, #299ac6)",
+  );
+
     print('Usuário e/ou senha incorreto(s)');
+
     return Future.value(false);
+    
   } else if (response.statusCode == 404) {
     Fluttertoast.showToast(
-      msg: "Cadastro não encontrado.",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP,
-      timeInSecForIosWeb: 5,
-      backgroundColor: Color.fromRGBO(125, 217, 253, 0.575),
-      textColor: Colors.black,
-      fontSize: 16.0,
-    );
+    msg: "Cadastro não encontrado.",
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 5,
+    backgroundColor: Colors.transparent,
+    textColor: Colors.white,
+    fontSize: 16.0,
+    webShowClose: true,
+    webBgColor: "linear-gradient(to right, #299ac6, #299ac6)",
+  );
     print('Usuário não cadastrado');
     return Future.value(false);
   }

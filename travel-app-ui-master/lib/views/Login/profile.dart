@@ -34,10 +34,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Stack(
           children: [
             Container(
-              height: 100,
-              child: AppBar(),
-            ),
-            Container(
               alignment: Alignment.center,
               margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),

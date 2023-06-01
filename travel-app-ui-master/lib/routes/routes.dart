@@ -4,7 +4,6 @@ import 'package:travelappui/views/Login/login.dart';
 import 'package:travelappui/views/Login/profile.dart';
 import 'package:travelappui/views/Login/register.dart';
 import 'package:travelappui/views/SplashScreen/splashscreen.dart';
-import 'package:travelappui/views/ViewDetails/viewDetails.dart';
 import 'package:travelappui/views/WeatherPrevision/lib2/mainWeather.dart';
 
 class AppRoutes {
@@ -31,10 +30,6 @@ class AppRoutes {
       case ROUTE_Splashscreen:
           return MaterialPageRoute(
             settings: settings, builder: (_) => SplashScreen());
-        break;
-      case ROUTE_ViewDetails:
-          return MaterialPageRoute(
-            settings: settings, builder: (_) => ViewDetails());
         break;
       case ROUTE_Login:
           return MaterialPageRoute(

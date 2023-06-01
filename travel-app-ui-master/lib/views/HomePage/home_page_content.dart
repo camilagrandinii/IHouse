@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
@@ -23,84 +24,59 @@ class _HomePageContentState extends State<HomePageContentWidget> {
   final janelaController = TextEditingController();
   int selectedIndex = -1;
   Timer timer;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
+  
   @override
   void initState() {
     super.initState();
-    initNotifications();
-    fetchData();
-    startTimer();
+    fetchWindows();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    showAlert();
+    });
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
-  void startTimer() {
-    const duration = Duration(minutes: 1);
-    timer = Timer.periodic(duration, (Timer t) {
-      fetchData();
-    });
-  }
-
-  void initNotifications() async {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('logo-sf.png');
-    final InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  Future<void> showNotification(String nomeJanela) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'channel_id',
-      'channel_name',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'ALERTA!',
-      'Sua janela ($nomeJanela) está aberta e começou a chover!',
-      platformChannelSpecifics,
-      payload: 'notification',
-    );
-  }
-
-  Future<void> fetchData() async {
-    final response =
-        await http.get(Uri.parse('https://localhost:7185/api/Sensor'));
-
+  Future<void> fetchWindows() async {
+    final response = await http.get(Uri.parse('https://ihouse.azurewebsites.net/api/Sensor'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       itemList = List<Item>.from(data.map((item) => Item(
             nome: item['local'],
             janelaAberta: item['isAberta'],
           )));
-
-      for (var item in itemList) {
-        if (item.janelaAberta) {
-          showNotification(item.nome);
-        }
+      setState(() {});
+      showAlert();    
       }
-    }
   }
+
+  void showAlert() {
+    Item selectedItem = itemList[selectedIndex];
+    if (selectedItem.janelaAberta) {
+      Fluttertoast.showToast(
+        msg: 'A janela está aberta!',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.blue,
+        textColor: Colors.white,
+        fontSize: 35.0,
+      );
+  }
+}
+
+
+  
 
   void editItem() {
     setState(() {
       Item item = itemList[selectedIndex];
       item.nome = nomeController.text;
-      nomeController.text = item.nome;
-      janelaController.text = item.janelaAberta.toString();
-      itemList[selectedIndex] = item;
     });
+    Navigator.of(context).pop();
   }
 
   @override
@@ -117,9 +93,9 @@ class _HomePageContentState extends State<HomePageContentWidget> {
                   Item item = itemList[index];
                   Widget janelaIcon;
                   if (item.janelaAberta) {
-                    janelaIcon = Icon(Icons.window);
+                    janelaIcon = Icon(Icons.water_damage);
                   } else {
-                    janelaIcon = Icon(Icons.window_outlined);
+                    janelaIcon = Icon(Icons.other_houses_rounded);
                   }
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16.0),
@@ -140,35 +116,74 @@ class _HomePageContentState extends State<HomePageContentWidget> {
                           setState(() {
                             selectedIndex = index;
                             nomeController.text = item.nome;
-                            janelaController.text =
-                                item.janelaAberta.toString();
                           });
-                        },
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit, color: Colors.black),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return EditItemDialog(
-                                      item: item,
-                                      nomeController: nomeController,
-                                      janelaController: janelaController,
-                                      onItemEdited: () {
-                                        setState(() {
-                                          editItem();
-                                        });
-                                        Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Editar Item'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextField(
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      controller: nomeController,
+                                      decoration: InputDecoration(
+                                        labelText: "Novo Nome",
+                                      ),
+                                    ),
+                                    SizedBox(height: 16),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        editItem();
                                       },
-                                    );
-                                  },
+                                      child: Text("Salvar"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        trailing: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                              nomeController.text = item.nome;
+                            });
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Editar Item'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextField(
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                        controller: nomeController,
+                                        decoration: InputDecoration(
+                                          labelText: "Novo Nome",
+                                        ),
+                                      ),
+                                      SizedBox(height: 16),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          editItem();
+                                        },
+                                        child: Text("Salvar"),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
-                            ),
-                          ],
+                            );
+                          },
+                          child: Icon(Icons.edit, color: Colors.black),
                         ),
                       ),
                     ),
@@ -178,55 +193,6 @@ class _HomePageContentState extends State<HomePageContentWidget> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class EditItemDialog extends StatelessWidget {
-  final Item item;
-  final TextEditingController nomeController;
-  final TextEditingController janelaController;
-  final Function onItemEdited;
-
-  const EditItemDialog({
-    Key key,
-    this.item,
-    this.nomeController,
-    this.janelaController,
-    this.onItemEdited,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Editar Item'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DefaultTextStyle(
-            style: TextStyle(color: Colors.black),
-            child: Column(
-              children: [
-                Text("Nome: ${item.nome}"),
-                TextField(
-                  controller: nomeController,
-                  decoration: InputDecoration(
-                    labelText: "Novo Nome",
-                  ),
-                ),
-                SizedBox(height: 16),
-              ],
-            ),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              onItemEdited();
-            },
-            child: Text("Salvar"),
-          ),
-        ],
       ),
     );
   }

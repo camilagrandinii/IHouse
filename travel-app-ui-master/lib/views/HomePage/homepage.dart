@@ -1,10 +1,8 @@
 
-import '../../models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../Login/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
-
-import '../../components/appbar.dart';
 import '../../constants/colors.dart';
 import '../WeatherPrevision/lib2/mainWeather.dart';
 
@@ -25,18 +23,28 @@ class _HomePageState extends State<HomePage> {
         HomePageContentWidget(),
         ProfilePage(),
       ];
+      
 
-  void onTabItemSelected(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      appBar: HomeAppBar,
+      appBar: PreferredSize(
+      preferredSize: Size.fromHeight(kToolbarHeight),
+      child: Container(
+        color: Color.fromRGBO(2, 166, 231, 0.573),
+        alignment: Alignment.center,
+        child: Text(
+          "IHouse Status",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+          ),
+        ),
+      ),
+    ),
       body: IndexedStack(
         index: currentIndex,
         children: pages,
@@ -51,7 +59,6 @@ class _HomePageState extends State<HomePage> {
         tabIconColor: kAppBarBackground,
         tabSelectedColor: kOnAccentColor,
         textStyle: TextStyle(color: kOnAccentColor),
-        onTabItemSelected: onTabItemSelected,
       ),
     );
   }

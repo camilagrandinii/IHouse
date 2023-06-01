@@ -184,7 +184,7 @@ User decode(var jsonString) {
 }
 
 Future<bool> login(String email, String password) async {
-  Uri getUserDataUrl = Uri.parse('https://localhost:7185/api/Users/$email');
+  Uri getUserDataUrl = Uri.parse('https://ihouse.azurewebsites.net/api/Users/$email');
   final response = await http.get(getUserDataUrl);
 
   var responseJson = response.body.parseJSON();

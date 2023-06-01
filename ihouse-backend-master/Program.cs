@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UserContext>(
-		o => o.UseSqlServer(builder.Configuration.GetConnectionString("UserDB"))
+		o => o.UseSqlServer("Server=tcp:ihouse-servidor.database.windows.net,1433;Initial Catalog=IHouse;Persist Security Info=False;User ID=1313525@sga.pucminas.br;Password=Senha2002;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Authentication=\"Active Directory Password\";")
 	);
 			
 var app = builder.Build();

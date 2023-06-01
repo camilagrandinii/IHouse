@@ -22,9 +22,7 @@ namespace ihouse_backend.Controllers {
 		public void PostSensor(Janela[] janela) {
 			janelas = new List<Janela>();
 			foreach (Janela j in janela) {
-				if (j.IsAberta && j.Sensor > 0.2f) {
-					janelas.Add(j);
-				}
+				janelas.Add(j);
 			}
 		}
 	}
